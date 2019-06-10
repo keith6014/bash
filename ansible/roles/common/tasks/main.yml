@@ -1,3 +1,13 @@
 - name: set hostname
   hostname:
-    name: '{{ ansible_hostname }}'
+    name: "{{ inventory_hostname }}"
+
+- name: install ntpd
+  yum:
+    name: ntp
+    state: present
+
+- name: ntpd running
+  service:
+          name: ntpd
+          state: started
