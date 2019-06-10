@@ -2,9 +2,11 @@
   hostname:
     name: "{{ inventory_hostname }}"
 
-- name: install ntpd
+- name: Install list of packages
   yum:
-    name: ntp
+    name:
+      - ntp
+      - docker
     state: present
 
 - name: ntpd running
