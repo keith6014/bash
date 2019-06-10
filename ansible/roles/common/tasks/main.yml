@@ -26,8 +26,20 @@
 - name: Install Kubernetes
   command: yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
 
+  #enable kubelet service
+
 
 - name: ntpd running
   service:
           name: ntpd
+          state: started
+
+- name: kubelet.servic
+  service:
+          name: kubelet
+          state: started
+
+- name: docker.servic
+  service:
+          name: docker
           state: started
