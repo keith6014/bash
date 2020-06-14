@@ -1,0 +1,45 @@
+- name: set hostname
+  hostname:
+    name: "{{ inventory_hostname }}"
+
+- name: Disable SELinux
+  selinux:
+    state: disabled
+
+- name: Copy kubernetes repo information
+  copy:
+    src: kubernetes.repo
+    dest: /etc/yum.repos.d/kubernetes.repo
+
+- name: Install list of packages
+  yum:
+    name:
+      - ntp
+      - yum-utils
+      - docker
+        #- kubelet
+        #- kubeadm
+        #- kubectl
+        #    disable_excludes: kubernetes
+    state: present
+
+- name: Install Kubernetes
+  command: yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
+
+  #enable kubelet service
+
+
+- name: ntpd running
+  service:
+          name: ntpd
+          state: started
+
+- name: kubelet.servic
+  service:
+          name: kubelet
+          state: started
+
+- name: docker.servic
+  service:
+          name: docker
+          state: started
